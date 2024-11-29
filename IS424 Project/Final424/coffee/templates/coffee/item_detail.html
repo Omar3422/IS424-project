@@ -1,0 +1,29 @@
+{% extends "coffee/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h1>{{ item.name }}</h1>
+<p>Item description: {{ item.description }}</p>
+<p>Item price: ${{ item.price }}</p>
+<p>Time to Serve: {{ item.time_to_serve }} minutes</p>
+
+<form method="post" action="{% url 'coffee:item_detail' item.pk %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Purchase</button>
+</form>
+
+<h3>Users who bought this item:</h3>
+<ul>
+    {% for purchase in purchases %}
+        <li>{{ purchase.user.username }} - {{ purchase.quantity }} times</li>
+    {% empty %}
+        <li>No purchases yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'coffee:edit_menu_item' item.pk %}" class="btn btn-sm btn-outline-primary">Edit Item</a>
+{% endblock %}

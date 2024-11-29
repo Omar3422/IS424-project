@@ -1,0 +1,34 @@
+{% extends "coffee/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h2 class="text-center">Menu</h2>
+<table id="menu_table" class="table table-striped">
+    <thead>
+        <tr>
+            <th> item name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in menu_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>${{ item.price }}</td>
+            <td>
+                <a href="{% url 'coffee:edit_menu_item' item.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a href="{% url 'coffee:item_detail' item.pk %}" class="btn btn-sm btn-outline-secondary">View Details</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No menu items available now.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="text-center">
+    <a href="{% url 'coffee:add_menu_item' %}" class="btn btn-primary">Add New Menu Item</a>
+</div>
+{% endblock %}

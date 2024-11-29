@@ -1,0 +1,17 @@
+{% extends "coffee/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="text-center">
+    <h2>Sign Up here</h2>
+    <form method="post" action="{% url 'coffee:signup' %}" class="form-signin">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+    </form>
+    {% if error %}
+    <p class="text-danger">{{ error }}</p>
+    {% endif %}
+    <p><a href="{% url 'coffee:login' %}">Login</a></p>
+</div>
+{% endblock %}
